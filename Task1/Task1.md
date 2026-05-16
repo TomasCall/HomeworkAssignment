@@ -115,6 +115,8 @@ Expected result:
 * Video and/or screenshot of the bug
     * Also, might be good to show the Console and the Network tab in the Dev Tools
 
+Extra info: Some additional information about the bug
+
 ## Potential bug which I might encounter during the testing
 
 Summary: [Shopping Cart] - Discounted items don't have their discount when the user checks the shopping cart
@@ -144,3 +146,38 @@ Expected result:
 
 Actual result:
 * Added item is visible without the discount, and also the summary doesn't equal to the discounted price
+
+Extra info: -
+
+## Actual bug I did encounter
+
+Summary: [Shopping page] - Hovering over the + - and trash icons doesn't change the mouse to pointer
+
+Severity: Critical or Major
+
+Versions: I wasn't able to find any
+
+Database: I wasn't able to check it
+
+Browsers: All browsers are affected
+
+### Description:
+
+Prerequisite:
+* Have items in the webshop
+* User is on the https://www.aldi.us/store/aldi/storefront page
+
+Steps to reproduce:
+
+1. Click on the "+ Add" button of the item mentioned in the prerequisite
+2. Second steHover over the + or the trash icon
+
+Expected result:
+* Mouse changes to pointer
+
+Actual result:
+* Mouse does not change to pointer
+
+Extra info: 
+* If you click on the + icon the - icon will be visible and if you hover over it you get the same result
+* This happens in the shopping cart too
