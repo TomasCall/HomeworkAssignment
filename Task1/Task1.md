@@ -141,5 +141,6 @@ Expected result:
 * Added item is visible with the discount, and also the summary equals to the discounted price
 * ![img.png](img.png)
 * Here I would also add a video about the steps
+
 Actual result:
 * Added item is visible without the discount, and also the summary doesn't equal to the discounted price
