@@ -87,3 +87,122 @@ test.describe('Login tests', ()=>{
     });
 });
 ```
+
+Every test is made up of ACTION and CHECK pairs. You can have as many ACTIONs after eachother as you want but when you end the ACTION part of the step you should follow it up with a CHECK method(s). After the CHECK part is finished you should create an empty line before writing the next ACTION part.
+
+Inside the beforeEach method we have a custom logging solution which in the logs helps us identify the start and end of the hook.
+
+#### Action and Assertion files
+
+Action methods can be found in the utils/action.ts and assertions can be found inside the utils/assertion.ts
+
+##### Action
+
+```typescript
+    clickElement = async (webElement: WebElement): Promise<void> => {
+        const stepDescription = `Clicking on '${webElement.name} - clickElement('${webElement.name}')'`;
+        await test.step(stepDescription, async ()=>{
+            this.testLogger.check(stepDescription);
+            await webElement.locator.click();
+            this.testLogger.action(`Successfully clicked '${webElement.name}'`);
+        });
+    }
+```
+
+The action methods are wrapped inside a test.step block so when checking the playwright reports we can only see our custom logging.
+
+##### Assertion
+
+```typescript
+    shouldBeVisible = async (webElement: WebElement): Promise<void> => {
+        const stepDescription = `Checking visibility of '${webElement.name} - shouldBeVisible('${webElement.name}')'`;
+        await test.step(stepDescription, async ()=>{
+            this.testLogger.check(stepDescription);
+            try{
+                await expect(webElement.locator).toBeVisible();
+                this.testLogger.check(`'${webElement.name}' is visible`);
+            } catch (error) {
+                this.testLogger.errorLog(`'${webElement.name}' is not visible`);
+                throw error;
+            }
+        });
+    }
+```
+
+Assertion methods structured similarly like the action methods with the extension of a try-catch block. This block allows us to have a custom logging message when the assertion fails.
+
+##### Locators and page specific methods
+
+Locators and page specific methods are stored inside the pages folder. An example file for this is the loginPage.ts
+
+```typescript
+import test, { Page } from "@playwright/test";
+import { BasePage } from "./basePage";
+import { WebElement } from "../utils/webElement";
+import { TestLogger } from "../helpers/testLogger";
+import { Assertion } from "../utils/assertion";
+
+export class LoginPage extends BasePage {
+    testLogger: TestLogger;
+    check: Assertion;
+
+    readonly emailInputField = new WebElement('emailInputField', this.getElement("input[name='email']"));
+    readonly passwordInputField = new WebElement('passwordInputField', this.getElement('input[name="passw"]'));
+    readonly logInButton = new WebElement('logInButton', this.getElement('button[title="Log In"]'));
+    readonly loadingIndicator = new WebElement('logInButton', this.getElement('[class="loading"]]'));
+
+    constructor(page: Page) {
+        super(page);
+        this.testLogger = new TestLogger('ShoppingPage');
+        this.check = new Assertion();
+    }
+
+    waitLoginPageToLoad = async(timeout: number): Promise<void> => {
+        const stepDescription = `Waiting for login page to fully load - waitForShoppingPageToLoad(${timeout})`;
+        await test.step(stepDescription, async () => {
+            this.testLogger.action(stepDescription);
+            if(await this.check.isVisible(this.loadingIndicator)) {
+                await this.check.shouldNotBeVisible(this.loadingIndicator);
+            }
+            this.testLogger.action('Login page is fully loaded');
+        });
+    }
+}
+```
+
+Locators are stored inside WebElement objects which have 2 properties, name (we need this for our logging) and a Locator object.
+
+As you can see we have a waitLoginPageToLoad method implemented here but the tests aren't calling this method directly from here but from a waitForLoginPageToLoad method which is inside the action file.
+
+##### Logging
+
+We have our custom logging solution implemented inside the helpers folder.
+
+We have 5 types of logs implemented: action, check, infoLog, errorLog, hook.
+
+Here is an example how our logging looks like:
+
+![img.png](img.png)
+
+##### Configuration
+
+Files about the configuration can be found inside the config folder.
+
+Here we have filed:
+* config.json - this file contains the configuration which is not sensitive data like
+  * urls for the pages
+  * defaultWaiting time for each page
+* config.ts - this is where we load the configuration into our config object
+  * Configuration comes from 2 places
+    * config.json with the not sensitive data
+    * CREDENTIALS environment variable which contains the sensitive data like:
+      * email
+      * password
+      * firstName
+      * lastName
+      * invalidPassword
+* types - this file contains the data structure for our config
+
+#### How to run a test?
+
+Inside the package.json file we have scripts which you can run with the right click run scrip option

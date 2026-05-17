@@ -11,7 +11,7 @@ export class LoginPage extends BasePage {
     readonly emailInputField = new WebElement('emailInputField', this.getElement("input[name='email']"));
     readonly passwordInputField = new WebElement('passwordInputField', this.getElement('input[name="passw"]'));
     readonly logInButton = new WebElement('logInButton', this.getElement('button[title="Log In"]'));
-    readonly loadingIndicator = new WebElement('logInButton', this.getElement('[class="loading"]]'));
+    readonly loadingIndicator = new WebElement('logInButton', this.getElement('[class="loading"]'));
 
     constructor(page: Page) {
         super(page);
