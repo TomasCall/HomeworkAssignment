@@ -1,4 +1,4 @@
-package org.apitesting.utils.task;
+package org.apitesting.utils;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -34,25 +34,25 @@ public class Task {
     public static Response sendPostRequestToTaskEndpoint(Task task) {
         return RestAssured.given().contentType(ContentType.JSON)
                 .body(task)
-                .post("/task");
+                .post("/tasks");
     }
 
     public static Response sendGetRequestToTaskEndpoint(int id) {
         return RestAssured.given().contentType(ContentType.JSON)
                 .pathParam(ID, id)
-                .get("/task/{id}");
+                .get("/tasks/{id}");
     }
 
     public static Response sendDeleteRequestToTaskEndpoint(int id) {
         return RestAssured.given().contentType(ContentType.JSON)
                 .pathParam(ID, id)
-                .delete("/task/{id}");
+                .delete("/tasks/{id}");
     }
 
     public static Response sendPutRequestToTaskEndpoint(Task task, int id) {
         return RestAssured.given().contentType(ContentType.JSON)
                 .pathParam(ID, id)
-                .post("/task/{id}");
+                .post("/tasks/{id}");
     }
 
     public static Task extractTaskFromResponse(Response response) {

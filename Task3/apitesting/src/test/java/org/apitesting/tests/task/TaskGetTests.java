@@ -2,12 +2,12 @@ package org.apitesting.tests.task;
 
 import io.restassured.response.Response;
 import org.apitesting.utils.BaseTest;
-import org.apitesting.utils.task.Task;
+import org.apitesting.utils.Task;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.apitesting.utils.task.Task.*;
+import static org.apitesting.utils.Task.*;
 
 public class TaskGetTests  extends BaseTest {
     Task task;
@@ -43,6 +43,6 @@ public class TaskGetTests  extends BaseTest {
         Response response = sendGetRequestToTaskEndpoint(nonExistingTaskId);
 
         shouldEqualStatusCode(response, HTTP_STATUS_NOT_FOUND);
-        fieldShouldEqualTo(response, MESSAGE, "Task was not found");
+        fieldShouldEqualTo(response, MESSAGE, "Not found");
     }
 }

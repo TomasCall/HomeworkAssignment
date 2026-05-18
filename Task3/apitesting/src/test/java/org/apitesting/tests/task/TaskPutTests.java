@@ -2,14 +2,14 @@ package org.apitesting.tests.task;
 
 import io.restassured.response.Response;
 import org.apitesting.utils.BaseTest;
-import org.apitesting.utils.task.Task;
+import org.apitesting.utils.Task;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.apitesting.utils.task.Task.*;
-import static org.apitesting.utils.task.Task.sendDeleteRequestToTaskEndpoint;
+import static org.apitesting.utils.Task.*;
+import static org.apitesting.utils.Task.sendDeleteRequestToTaskEndpoint;
 
 public class TaskPutTests  extends BaseTest {
     Task task;
@@ -38,12 +38,12 @@ public class TaskPutTests  extends BaseTest {
     }
 
     @Test(dataProvider = "taskUpdateData")
-    public void createNewTask(Task task) {
+    public void testUpdateTask(Task task) {
         this.task = task;
         Response response = sendPutRequestToTaskEndpoint(task, this.task.getId());
 
         shouldEqualStatusCode(response, HTTP_STATUS_OK);
-        shouldMatchJsonScheme(response, "schemes/taskPostScheme.json");
+        shouldMatchJsonScheme(response, "schemes/taskPutScheme.json");
         fieldShouldEqualTo(response, ID, this.task.getId());
         fieldShouldEqualTo(response, SUMMARY, task.getSummary());
         fieldShouldEqualTo(response, DESCRIPTION, task.getDescription());
@@ -53,17 +53,26 @@ public class TaskPutTests  extends BaseTest {
     @DataProvider(name = "taskUpdateDataWithIncorrectPriority")
     public Object[][] taskUpdateDataWithIncorrectPriority() {
         return new Object[][]{
-                {new Task("New Task Summary 1", "New Task Description 1", "high")},
-                {new Task("New Task Summary 2", "New Task Description 2", "High")},
-                {new Task("New Task Summary 3", "New Task Description 3", "Lorem")}
+                {new Task("New Task Summary", "New Task Description", "high")},
+                {new Task("New Task Summary", "New Task Description", "High")},
+                {new Task("New Task Summary", "New Task Description", "Lorem")}
         };
     }
 
     @Test(dataProvider = "taskUpdateDataWithIncorrectPriority")
-    public void checkTaskCreationWithIncorrectPriority(Task task) {
+    public void checkTaskUpdatingWithIncorrectPriority(Task task) {
         Response response = sendPutRequestToTaskEndpoint(task, this.task.getId());
 
         shouldEqualStatusCode(response, HTTP_STATUS_BAD_REQUEST);
         fieldShouldEqualTo(response, MESSAGE, "Incorrect priority");
+    }
+
+    @Test
+    public void checkTaskUpdatingWithINonExistingId() {
+        int nonExistingId = task.getId() + 1;
+        Response response = sendPutRequestToTaskEndpoint(task, nonExistingId);
+
+        shouldEqualStatusCode(response, HTTP_STATUS_NOT_FOUND);
+        fieldShouldEqualTo(response, MESSAGE, "Not found");
     }
 }

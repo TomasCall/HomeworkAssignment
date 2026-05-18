@@ -2,12 +2,12 @@ package org.apitesting.tests.task;
 
 import io.restassured.response.Response;
 import org.apitesting.utils.BaseTest;
-import org.apitesting.utils.task.Task;
+import org.apitesting.utils.Task;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static org.apitesting.utils.task.Task.*;
+import static org.apitesting.utils.Task.*;
 
 public class TaskPostTests extends BaseTest {
     Task task;
