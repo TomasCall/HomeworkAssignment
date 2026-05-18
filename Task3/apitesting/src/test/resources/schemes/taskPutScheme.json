@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "required": ["id", "summary", "description", "priority"],
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+    }
+  }
+}

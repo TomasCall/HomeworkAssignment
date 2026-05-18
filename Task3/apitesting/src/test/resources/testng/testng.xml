@@ -1,0 +1,11 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="APITestSuite">
+    <test name="APTTest">
+        <classes>
+            <class name="org.apitesting.tests.task.TaskDeleteTests"/>
+            <class name="org.apitesting.tests.task.TaskGetTests"/>
+            <class name="org.apitesting.tests.task.TaskPostTests"/>
+            <class name="org.apitesting.tests.task.TaskPutTests"/>
+        </classes>
+    </test>
+</suite>
