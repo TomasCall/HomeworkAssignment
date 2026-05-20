@@ -55,6 +55,8 @@ I would use the following workflow for this task:
 
 ## JUNIT + Selenium
 
+To run this project you will need Java and Maven installes.
+
 ### DeleteTaskTests Class
 ```java
 package tests;
