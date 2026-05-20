@@ -4,7 +4,7 @@
 
 ## Why Playwright?
 
-Playwright is the most modern any widely used Test Automation Framework. This framework has a lot of built in feature which other automation tools don't have like the playwright tracer and also the storage state where we can save a state of a page. This is useful if we don't want to log in every time we execute a new test.
+Playwright is one of the most modern any widely used Test Automation Framework. This framework has a lot of built in feature which other automation tools don't have like the playwright tracer and also the storage state where we can save a state of a page. This is useful if we don't want to log in every time we execute a new test.
 
 ## Why Typescript?
 
@@ -88,7 +88,7 @@ test.describe('Login tests', ()=>{
 });
 ```
 
-Every test is made up of ACTION and CHECK pairs. You can have as many ACTIONs after eachother as you want but when you end the ACTION part of the step you should follow it up with a CHECK method(s). After the CHECK part is finished you should create an empty line before writing the next ACTION part.
+Every test is made up of ACTION and CHECK pairs. You can have as many ACTIONs after each other as you want but when you end the ACTION part of the step you should follow it up with a CHECKs. After the CHECK part is finished you should create an empty line before writing the next ACTION part.
 
 Inside the beforeEach method we have a custom logging solution which in the logs helps us identify the start and end of the hook.
 
@@ -109,7 +109,7 @@ Action methods can be found in the utils/action.ts and assertions can be found i
     }
 ```
 
-The action methods are wrapped inside a test.step block so when checking the playwright reports we can only see our custom logging.
+The action methods are wrapped inside a test.step block so when checking the playwright reports we can only see our custom logs.
 
 ##### Assertion
 
@@ -157,7 +157,7 @@ export class LoginPage extends BasePage {
         this.check = new Assertion();
     }
 
-    waitLoginPageToLoad = async(timeout: number): Promise<void> => {
+    waitForLoginPageToLoad = async(timeout: number): Promise<void> => {
         const stepDescription = `Waiting for login page to fully load - waitForShoppingPageToLoad(${timeout})`;
         await test.step(stepDescription, async () => {
             this.testLogger.action(stepDescription);
@@ -205,4 +205,4 @@ Here we have filed:
 
 #### How to run a test?
 
-Inside the package.json file we have scripts which you can run with the right click run scrip option
+Inside the package.json file we have scripts which you can run with the right click run scrip option 

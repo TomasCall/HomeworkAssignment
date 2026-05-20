@@ -55,7 +55,7 @@ I would use the following workflow for this task:
 
 ## JUNIT + Selenium
 
-To run this project you will need Java and Maven installes.
+To run this project you will need Java and Maven installed.
 
 ### DeleteTaskTests Class
 ```java
@@ -202,7 +202,7 @@ public class TaskPage {
     }
 }
 ```
-This is where we have the page specific properties and locators. Locators are stored in a custom object which have 2 properties. Locator and a name which represents not only the name oif the element but also the where it is located (taskTitle is located on the taskPage so the name will be taskPage.taskTitle) 
+This is where we have the page specific properties and locators. Locators are stored in a custom object which have 2 properties. Locator and a name which represents not only the name of the element but also the where it is located (taskTitle is located on the taskPage so the name will be taskPage.taskTitle) 
 
 ### Assert class
 ```java
@@ -325,7 +325,7 @@ public class Task {
     }
 }
 ```
-This class is under the api package and this is where we have the api methods which allow as to generate and delete the test data.
+This class is under the api package and this is where we have the api methods which allow us to generate and delete the test data.
 
 ---
 

@@ -19,7 +19,7 @@ export class LoginPage extends BasePage {
         this.check = new Assertion();
     }
 
-    waitLoginPageToLoad = async(timeout: number): Promise<void> => {
+    waitForLoginPageToLoad = async(timeout: number): Promise<void> => {
         const stepDescription = `Waiting for login page to fully load - waitForShoppingPageToLoad(${timeout})`;
         await test.step(stepDescription, async () => {
             this.testLogger.action(stepDescription);

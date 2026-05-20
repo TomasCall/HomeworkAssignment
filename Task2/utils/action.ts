@@ -46,6 +46,6 @@ export class Action {
 
     waitForLoginPageToLoad = async (timeout: number): Promise<void> => {
         const shoppingPage = new LoginPage(this.page);
-        await shoppingPage.waitLoginPageToLoad(timeout);
+        await shoppingPage.waitForLoginPageToLoad(timeout);
     }
 }

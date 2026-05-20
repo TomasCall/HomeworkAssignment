@@ -25,6 +25,15 @@ Endpoint would expect the following json structure as the requestBody with 200 O
   "priority": ""
 }
 ```
+This would be the response for a successful POST request:
+```json
+{
+  "id": 0
+  "summary": "",
+  "description": "",
+  "priority": ""
+}
+```
 
 For invalid priority the endpoint would return the following json with 400 BAD_REQUEST:
 

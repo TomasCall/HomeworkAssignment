@@ -51,7 +51,7 @@ Browser: All supported browser
 
 Prerequisite:
 
-* User is logged in
+* User is not logged in
 * User is on the https://www.aldi.us/store/aldi/storefront page
 * There are items in the webshop which are discounted and which are not
 
@@ -95,7 +95,9 @@ Versions: Frontend and Backend versions
 
 Database Type: If the application supports multiple DB types
 
-Browser type: Browsers where the bug is reproducable
+Browser type: Browsers where the bug is reproducible
+
+Environment: DEV or PROD
 
 ### Description:
 
@@ -110,7 +112,8 @@ Expected result:
 
 * Expected result after the last step of the Steps to reproduce part
 * If we can show a screenshot and/or video of the expected result on a version which doesn't contain the issue
-  Actual result:
+
+Actual result:
 * Actual result after the last step of the Steps to reproduce part
 * Video and/or screenshot of the bug
     * Also, might be good to show the Console and the Network tab in the Dev Tools
@@ -121,13 +124,15 @@ Extra info: Some additional information about the bug
 
 Summary: [Shopping Cart] - Discounted items don't have their discount when the user checks the shopping cart
 
-Severity: Critical or Major
+Severity: Critical
 
-Versions: I wasn't able to find any
+Versions: I wasn't able to check it
 
 Database: I wasn't able to check it
 
 Browsers: All browsers are affected
+
+Environment: PROD
 
 ## Description:
 
@@ -153,13 +158,15 @@ Extra info: -
 
 Summary: [Shopping page] - Hovering over the + - and trash icons doesn't change the mouse to pointer
 
-Severity: Critical or Major
+Severity: Trivial
 
 Versions: I wasn't able to find any
 
 Database: I wasn't able to check it
 
 Browsers: All browsers are affected
+
+Environment: PROD
 
 ### Description:
 
