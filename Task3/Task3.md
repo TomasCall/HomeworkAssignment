@@ -268,58 +268,66 @@ import io.restassured.response.Response;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 @AllArgsConstructor
 public class Task {
-    // JSON KEYS
-    public static final String ID = "id";
-    public static final String SUMMARY = "summary";
-    public static final String DESCRIPTION = "description";
-    public static final String PRIORITY = "priority";
-    public static final String MESSAGE = "message";
-    // PRIORITIES
-    public static final String HIGH = "HIGH";
-    public static final String MEDIUM = "MEDIUM";
-    public static final String LOW = "LOW";
+  // JSON KEYS
+  public static final String ID = "id";
+  public static final String SUMMARY = "summary";
+  public static final String DESCRIPTION = "description";
+  public static final String PRIORITY = "priority";
+  public static final String MESSAGE = "message";
+  // PRIORITIES
+  public static final String HIGH = "HIGH";
+  public static final String MEDIUM = "MEDIUM";
+  public static final String LOW = "LOW";
 
-    public Task(String summary, String description, String priority) {
-        this.summary = summary;
-        this.description = description;
-        this.priority = priority;
-    }
+  public Task(String summary, String description, String priority) {
+    this.summary = summary;
+    this.description = description;
+    this.priority = priority;
+  }
 
-    private String summary;
-    private String description;
-    private String priority;
-    private int id;
+  private String summary;
+  private String description;
+  private String priority;
+  private int id;
 
-    public static Response sendPostRequestToTaskEndpoint(Task task) {
-        return RestAssured.given().contentType(ContentType.JSON)
-                .body(task)
-                .post("/tasks");
-    }
+  public static Response sendPostRequestToTaskEndpoint(Task task) {
+    Map<String, Object> body = new HashMap<>();
+    body.put(SUMMARY, task.getSummary());
+    body.put(DESCRIPTION, task.getDescription());
+    body.put(PRIORITY, task.getPriority());
 
-    public static Response sendGetRequestToTaskEndpoint(int id) {
-        return RestAssured.given().contentType(ContentType.JSON)
-                .pathParam(ID, id)
-                .get("/tasks/{id}");
-    }
+    return RestAssured.given().contentType(ContentType.JSON)
+            .body(body)
+            .post("/tasks");
+  }
 
-    public static Response sendDeleteRequestToTaskEndpoint(int id) {
-        return RestAssured.given().contentType(ContentType.JSON)
-                .pathParam(ID, id)
-                .delete("/tasks/{id}");
-    }
+  public static Response sendGetRequestToTaskEndpoint(int id) {
+    return RestAssured.given().contentType(ContentType.JSON)
+            .pathParam(ID, id)
+            .get("/tasks/{id}");
+  }
 
-    public static Response sendPutRequestToTaskEndpoint(Task task, int id) {
-        return RestAssured.given().contentType(ContentType.JSON)
-                .pathParam(ID, id)
-                .post("/tasks/{id}");
-    }
+  public static Response sendDeleteRequestToTaskEndpoint(int id) {
+    return RestAssured.given().contentType(ContentType.JSON)
+            .pathParam(ID, id)
+            .delete("/tasks/{id}");
+  }
 
-    public static Task extractTaskFromResponse(Response response) {
-        return (Task) response.then().extract();
-    }
+  public static Response sendPutRequestToTaskEndpoint(Task task, int id) {
+    return RestAssured.given().contentType(ContentType.JSON)
+            .pathParam(ID, id)
+            .post("/tasks/{id}");
+  }
+
+  public static Task extractTaskFromResponse(Response response) {
+    return response.as(Task.class);
+  }
 }
 ```
 * This is where we store the json keys and priority values, so it is easier to change if the endpoint changes
