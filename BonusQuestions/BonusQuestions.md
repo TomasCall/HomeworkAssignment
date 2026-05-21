@@ -2,7 +2,7 @@
 
 ## Docker
 
-Docker is a tool which can package softwares into containers. Docker helps us to deliver the same software to multiple environments and still getting the same result. 
+Docker is a tool which can package softwares into containers. Docker helps us to deliver the same software to multiple environments and still get the same result. 
 
 There are 3 parts of Docker which we have to talk about:
 * Docker file
